@@ -123,5 +123,4 @@ class IPythonPygmentsRenderer(IPythonRenderer):
     def get_client_id(self, segment_info):
         return id(self)
 
-
 renderer = IPythonPygmentsRenderer

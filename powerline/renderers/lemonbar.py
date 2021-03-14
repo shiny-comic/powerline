@@ -171,5 +171,4 @@ class LemonbarRenderer(Renderer):
             )
             return match['theme']
 
-
 renderer = LemonbarRenderer

@@ -682,3 +682,4 @@ class Renderer(object):
         ``escaped_contents``.
         '''
         return self.hlstyle(fg, bg, attrs, *args, **kwargs) + (escaped_contents or '')
+

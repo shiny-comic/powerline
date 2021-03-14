@@ -31,11 +31,11 @@ def _convert_state(state):
         return 'stop'
     return 'fallback'
 
-
 def _convert_seconds(seconds):
     '''Convert seconds to minutes:seconds format'''
+    if isinstance(seconds, str):
+        seconds = seconds.replace(",",".")
     return '{0:.0f}:{1:02.0f}'.format(*divmod(float(seconds), 60))
-
 
 @requires_segment_info
 class PlayerSegment(Segment):
@@ -184,63 +184,6 @@ Highlight groups used: ``player:fallback`` or ``player``, ``player:play`` or ``p
 
 
 _player = with_docstring(PlayerSegment(), _common_args.format('_player'))
-
-class GPMDPlayerSegment(PlayerSegment):
-    def get_channel_name(self, pl):
-        return 'players.gpmpd'
-
-    last = { }
-    def get_player_status(self, pl):
-        '''Return Google Play Music Desktop player information'''
-        import json
-        from os.path import expanduser
-        home = expanduser('~')
-        global last
-        try:
-            with open(home + '/.config/Google Play Music Desktop Player/' +
-                'json_store/playback.json') as f:
-                data = f.read()
-        except:
-            with open(home + '/GPMDP_STORE/playback.json') as f:
-                data = f.read()
-        try:
-            data = json.loads(data)
-        except:
-            return last
-
-        def parse_playing(st, b):
-            if not b:
-                return 'stop'
-            return 'play' if st else 'pause'
-        def parse_shuffle(st):
-            return 'shuffle' if st == 'ALL_SHUFFLE' else 'fallback'
-        def parse_repeat(st):
-            if st == 'LIST_REPEAT':
-                return 'repeat'
-            elif st == 'SINGLE_REPEAT':
-                return 'loop'
-            else:
-                return 'fallback'
-
-        last = {
-            'state': parse_playing(data['playing'],data['song']['album']),
-            'shuffle': parse_shuffle(data['shuffle']),
-            'repeat': parse_repeat(data['repeat']),
-            'album': data['song']['album'],
-            'artist': data['song']['artist'],
-            'title': data['song']['title'],
-            'elapsed': _convert_seconds(data['time']['current'] / 1000),
-            'total': _convert_seconds(data['time']['total'] / 1000),
-            'elapsed_raw': int(data['time']['current']),
-            'total_raw': int(data['time']['total']),
-            }
-        return last
-
-gpmdp = with_docstring(GPMDPlayerSegment(),
-('''Return Google Play Music Desktop information
-
-{0}
-''').format(_common_args.format('gpmdp')))
 
 class CmusPlayerSegment(PlayerSegment):
     def get_channel_name(self, pl):

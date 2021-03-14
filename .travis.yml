@@ -22,8 +22,9 @@ script:   echo "tests disabled" #tests/test.sh
 jobs:
     include:
         - python: "pypy3"
-        - python: "3.4"
-        - python: "3.5"
         - python: "3.6"
+        - python: "3.7"
+        - python: "3.8"
+        - python: "3.9"
 
 # vim: et

@@ -181,5 +181,4 @@ class VimRenderer(Renderer):
             ))
         return '%#' + self.hl_groups[(fg, bg, attrs)]['name'] + '#'
 
-
 renderer = VimRenderer

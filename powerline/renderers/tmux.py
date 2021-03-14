@@ -72,5 +72,4 @@ class TmuxRenderer(Renderer):
         r['mode'] = mode
         return r
 
-
 renderer = TmuxRenderer

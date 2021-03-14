@@ -326,7 +326,6 @@ class VimPowerline(Powerline):
             vim.command('set tabline=%!{pyeval}(\'powerline.tabline()\')'.format(
                 pyeval=self.pyeval))
 
-
 pycmd = None
 
 

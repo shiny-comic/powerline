@@ -754,3 +754,4 @@ class Spec(object):
         '''Set specification for the given key
         '''
         self.update(**{key: value})
+

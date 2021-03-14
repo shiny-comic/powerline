@@ -99,6 +99,7 @@ try:
             'highlight_groups': ['cpu_load_percent_gradient', 'cpu_load_percent'],
         'click_values': {'cpu_load': format.format(cpu_percent), 'cpu_load_raw': cpu_percent}
             }]
+
 except ImportError:
     class CPULoadPercentSegment(ThreadedSegment):
         interval = 1
