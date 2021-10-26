@@ -194,7 +194,7 @@ def restart_bar(output_name):
             if screen['primary'] == None:
                 continue
 
-        height = args.height
+        height = int(args.height)
         if args.relative_height:
             height = int((min(int(screen['height']), int(screen['width']))) * float(args.height) / 100)
 

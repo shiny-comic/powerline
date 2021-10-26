@@ -30,11 +30,11 @@ def get_argparser(ArgumentParser=argparse.ArgumentParser):
         help='Use alternative output detection'
     )
     parser.add_argument(
-        '--height', '-H', default='18',
+        '--height', '-H', default=18,
         metavar='PIXELS', help='Bar height. Defaults to 18.'
     )
     parser.add_argument(
-        '--correction', '-c', default='1',
+        '--correction', '-c', default=1,
         help='Correction factor for default font sizes.'
     )
     parser.add_argument(
