@@ -94,6 +94,39 @@ def is_empty_workspace(w, ws_containers):
 
     return False if len(wins) > 0 else True
 
+def is_empty_workspace(workspace, containers):
+	if workspace.focused or workspace.visible:
+		return False
+	wins = [win for win in containers[workspace.name].leaves()]
+	return False if len(wins) > 0 else True
+
+WS_ICONS = {"multiple": "M"}
+
+def get_icon(workspace, separator, icons, show_multiple_icons, ws_containers):
+	icons_tmp = WS_ICONS
+	icons_tmp.update(icons)
+	icons = icons_tmp
+
+	wins = [win for win in ws_containers[workspace.name].leaves() \
+		if win.parent.scratchpad_state == 'none']
+	if len(wins) == 0:
+		return ''
+
+	result = ''
+	cnt = 0
+	for key in icons:
+		if not icons[key] or len(icons[key]) < 1:
+			continue
+		if any(key in win.window_class for win in wins if win.window_class):
+			result += (separator if cnt > 0 else '') + icons[key]
+			cnt += 1
+	if not show_multiple_icons and cnt > 1:
+		if 'multiple' in icons:
+			return icons['multiple']
+		else:
+			return ''
+	return result
+
 @requires_segment_info
 def workspaces(pl, segment_info, only_show=None, output=None, strip=0, separator=" ",
         icons=WS_ICONS, show_icons=True, show_multiple_icons=True, show_dummy_workspace=False,
