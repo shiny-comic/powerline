@@ -4,7 +4,7 @@ from traceback import print_exc
 try:
     __version__ = subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags'], stderr=subprocess.DEVNULL).strip().decode()
 except Exception:
-    __version__ = '1.9.3'
+    __version__ = '1.9.5'
 
 
 def get_version():
