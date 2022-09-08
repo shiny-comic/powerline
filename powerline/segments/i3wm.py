@@ -15,25 +15,25 @@ def workspace_groups(w):
     return group
 
 WS_ICONS = {
-        "Xfce4-terminal":   "",
-        "Chromium":         "",
-        "Google-chrome":    "",
-        "Steam":            "",
-        "jetbrains":        "",
-        "Gimp":             "",
-        "Pavucontrol":      "",
-        "Lmms":             "",
-        "Thunderbird":      "",
-        "Thunar":           "",
-        "Skype":            "",
-        "TelegramDesktop":  "",
-        "feh":              "",
-        "firefox":          "",
-        "Evince":           "",
-        "Okular":           "",
-        "libreoffice-calc": "",
+        "Xfce4-terminal":     "",
+        "Chromium":           "",
+        "Google-chrome":      "",
+        "Steam":              "",
+        "jetbrains":          "",
+        "Gimp":               "",
+        "Pavucontrol":        "",
+        "Lmms":               "",
+        "thunderbird":        "",
+        "Thunar":             "",
+        "Skype":              "",
+        "TelegramDesktop":    "",
+        "feh":                "",
+        "firefox":            "",
+        "Evince":             "",
+        "Okular":             "",
+        "libreoffice-calc":   "",
         "libreoffice-writer": "",
-        "multiple":         ""
+        "multiple":           ""
         }
 
 def get_icon(w, separator, icons, show_multiple_icons, ws_containers):
@@ -45,6 +45,7 @@ def get_icon(w, separator, icons, show_multiple_icons, ws_containers):
 
     wins = [win for win in ws_containers[w.name].leaves() \
             if win.parent.scratchpad_state == 'none']
+
     if len(wins) == 0:
         return ""
 
@@ -53,7 +54,7 @@ def get_icon(w, separator, icons, show_multiple_icons, ws_containers):
     for key in icons:
         if not icons[key] or len(icons[key]) < 1:
             continue
-        if any(key in win.window_class for win in wins if win.window_class):
+        if any(key.upper() in win.window_class.upper() for win in wins if win.window_class):
             result += separator + icons[key]
             cnt += 1
     if not show_multiple_icons and cnt > 1:
