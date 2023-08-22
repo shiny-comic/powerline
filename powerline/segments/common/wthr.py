@@ -121,7 +121,8 @@ class WeatherSegment(KwThreadedSegment):
             return self.location_urls[weather_key]
         except KeyError:
             query_data = {
-                    "appid": weather_key.weather_api_key
+                    "appid": weather_key.weather_api_key,
+                    "units": "metric"
                     }
             location_query = weather_key.location_query
             if location_query is None:
