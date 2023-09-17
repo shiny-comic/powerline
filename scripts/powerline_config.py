@@ -10,11 +10,13 @@ except ImportError:
 
 import powerline.bindings.config as config
 
-
-if __name__ == '__main__':
+def main():
 	parser = get_argparser()
 	args = parser.parse_args()
 
 	pl = config.create_powerline_logger(args)
 
 	args.function(pl, args)
+
+if __name__ == '__main__':
+	main()

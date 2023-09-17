@@ -217,7 +217,7 @@ def restart_callback(output):
     else:
         needs_restart.extend([output])
 
-if __name__ == '__main__':
+def main():
     parser = get_argparser()
     args = parser.parse_args()
 
@@ -267,3 +267,6 @@ if __name__ == '__main__':
 
     while True:
         time.sleep(1e8)
+
+if __name__ == '__main__':
+    main()

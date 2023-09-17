@@ -5,7 +5,9 @@ import sys
 from powerline.lint import check
 from powerline.commands.lint import get_argparser
 
-
-if __name__ == '__main__':
+def main():
 	args = get_argparser().parse_args()
 	sys.exit(check(args.config_path, args.debug))
+
+if __name__ == '__main__':
+	main()

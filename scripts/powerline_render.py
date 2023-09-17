@@ -18,11 +18,14 @@ if sys.version_info < (3,):
 else:
 	write = sys.stdout.buffer.write
 
-
-if __name__ == '__main__':
+def main():
 	parser = get_argparser()
 	args = parser.parse_args()
 	finish_args(parser, os.environ, args)
 	powerline = ShellPowerline(args, run_once=True)
 	segment_info = {'args': args, 'environ': os.environ}
 	write_output(args, powerline, segment_info, get_unicode_writer())
+
+
+if __name__ == '__main__':
+	main()

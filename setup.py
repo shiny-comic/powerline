@@ -30,6 +30,7 @@ def compile_client():
 
 try:
     compile_client()
+    print('Using C version.')
 except Exception as e:
     print('Compiling C version of powerline-client failed')
     logging.exception(e)
@@ -43,13 +44,9 @@ except Exception as e:
     if which('socat') and which('sed') and which('sh'):
         print('Using powerline.sh script instead of C version (requires socat, sed and sh)')
         shutil.copyfile('client/powerline.sh', 'scripts/powerline')
-        can_use_scripts = True
     else:
         print('Using powerline.py script instead of C version')
         shutil.copyfile('client/powerline.py', 'scripts/powerline')
-        can_use_scripts = True
-else:
-    can_use_scripts = False
 
 setup(
     name='powerline-status-i3',
@@ -79,28 +76,30 @@ setup(
     author_email='philipwellnitz@gmx.de',
     url='https://github.com/ph111p/powerline',
     license='MIT',
-    # XXX Python 3 doesn’t allow compiled C files to be included in the scripts
-    # list below. This is because Python 3 distutils tries to decode the file to
-    # ASCII, and fails when powerline-client is a binary.
-    #
-    # FIXME Current solution does not work with `pip install -e`. Still better
-    # then solution that is not working at all.
-    scripts=[
-        'scripts/powerline-lint',
-        'scripts/powerline-daemon',
-        'scripts/powerline-render',
-        'scripts/powerline-config',
-        'scripts/powerline-lemonbar',
-        'scripts/powerline-gcal-auth',
-        'scripts/powerline-globmenu'
-    ] + (['scripts/powerline'] if can_use_scripts else []),
-    data_files=(([] if can_use_scripts else [('bin', ['scripts/powerline'])])),
+    entry_points={
+        'console_scripts': [
+            'powerline-lint=scripts.powerline_lint:main',
+            'powerline-daemon=scripts.powerline_daemon:main',
+            'powerline-render=scripts.powerline_render:main',
+            'powerline-config=scripts.powerline_config:main',
+            'powerline-lemonbar=scripts.powerline_lemonbar:main',
+            'powerline-gcal-auth=scripts.powerline_gcal_auth:main',
+            'powerline-globmenu=scripts.powerline_globmenu:main'
+        ]
+    },
+    package_data={'': ['scripts/powerline', 'scripts/*.py']},
     keywords='',
-    packages=find_packages(exclude=('tests', 'tests.*')),
+    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=['i3ipc', 'python-xlib'],
+    install_requires=[],
     extras_require={
+        'i3wm segment': [
+            'i3ipc'
+        ],
+        'randr segment': [
+            'python-xlib'
+        ],
         'volume segment': [
             'pyalsaaudio'
         ],
@@ -116,6 +115,9 @@ setup(
         ],
         'wifi segment support': [
             'iwlib'
-        ]
+        ],
+        'better git support in vcs segment': [
+            'pygit2'
+        ],
     },
 )
