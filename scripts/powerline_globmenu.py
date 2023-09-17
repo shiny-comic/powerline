@@ -27,6 +27,10 @@ class HudMenuService(dbus.service.Object):
     def Q(self):
         Gtk.main_quit()
 
-DBusGMainLoop(set_as_default=True)
-myservice = HudMenuService()
-Gtk.main()
+def main():
+    DBusGMainLoop(set_as_default=True)
+    myservice = HudMenuService()
+    Gtk.main()
+
+if __name__ == __main__:
+    main()

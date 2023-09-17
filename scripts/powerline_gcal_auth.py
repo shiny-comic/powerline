@@ -2,7 +2,7 @@
 
 from powerline.commands.gcalauth import get_argparser
 
-if __name__ == '__main__':
+def main():
     import sys, os
     import httplib2
 
@@ -57,3 +57,5 @@ if __name__ == '__main__':
         print('client-id: {0}\nclient-secret: {1}'.format(credentials.client_id, credentials.client_secret))
 
 
+if __name__ == '__main__':
+    main()
