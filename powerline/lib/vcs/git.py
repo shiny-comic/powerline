@@ -323,7 +323,10 @@ except ImportError:
             return res
 
         def do_ahead_behind(self):
-            res = [int(e) for e in self.getgitline('rev-list', '--left-right', '--count', 'HEAD...@{upstream}').split()]
+            gitline = self.getgitline('rev-list', '--left-right', '--count', 'HEAD...@{upstream}')
+            if gitline is None:
+                return {}
+            res = [int(e) for e in gitline.split()]
             return {'AHEAD': res[0], 'BEHIND': res[1]}
 
         @property
