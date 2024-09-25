@@ -225,7 +225,8 @@ try:
             repo = self._repo()
 
             try:
-                res = repo.ahead_behind(repo.head.target, repo.revparse_single('@{upstream}').hex)
+                res = repo.ahead_behind(repo.head.target,
+                                        repo.revparse_single('@{upstream}').id)
             except KeyError:
                 res = (0, 0)
             return {'AHEAD': res[0], 'BEHIND': res[1]}
@@ -233,7 +234,7 @@ try:
         @property
         def short(self):
             #TODO: Don't fix the length of the prefix
-            return self._repo().head.target.hex[:7]
+            return self._repo().head.target.__str__()[:7]
 
         @property
         def summary(self):
