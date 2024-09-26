@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 
-def date(pl, format='%Y-%m-%d', istime=False, timezone=None, rel_names=['4', 'Off', '1', '2', '3']):
+def date(pl, format='%Y-%m-%d', istime=False, timezone=None):
     '''Return the current date.
 
     :param string format:
@@ -24,7 +24,6 @@ def date(pl, format='%Y-%m-%d', istime=False, timezone=None, rel_names=['4', 'Of
         tz = None
 
     nw = datetime.now(tz)
-    format = format.replace('%J', rel_names[nw.timetuple().tm_yday % len(rel_names)])
 
     try:
         contents = nw.strftime(format)
