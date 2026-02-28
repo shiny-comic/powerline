@@ -103,7 +103,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        "powerline-cpu-cpu-temp @ git+https://github.com/shiny-comic/powerline-cpu-temp-pi",
+        "powerline-cpu-temp-pi @ git+https://github.com/shiny-comic/powerline-cpu-temp-pi",
         "powerline-gitstatus",
     ],
     extras_require={
