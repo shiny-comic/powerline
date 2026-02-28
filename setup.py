@@ -59,7 +59,7 @@ except Exception as e:
         shutil.copyfile("client/powerline.py", "scripts/powerline")
 
 setup(
-    name="powerline-status-i3",
+    name="powerline-status",
     version=get_version(),
     description="The ultimate statusline/prompt utility. A fork containing more features for the i3 window manager.",
     long_description=README,
@@ -102,7 +102,10 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=[],
+    install_requires=[
+        "powerline-cpu-cpu-temp @ git+https://github.com/shiny-comic/powerline-cpu-temp-pi",
+        "powerline-gitstatus",
+    ],
     extras_require={
         "i3wm segment": ["i3ipc"],
         "randr segment": ["python-xlib"],
